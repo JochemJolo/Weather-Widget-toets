@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <h1>Weather</h1>
+
+    <p>City: <span id="city"></span></p>
+    <p>Temperature:  <span id="temperature"></span>  Celsius</p>
+    <p>Weather: <span id="weather"></span></p>
+    <p>Time: <span id="time"></span></p>
+
+    <script>
+        fetch("weather.json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("city").textContent = data.city;
+                document.getElementById("temperature").textContent = data.temperature;
+                document.getElementById("weather").textContent = data.weather;
+                document.getElementById("time").textContent = data.time;
+            })
+            .catch(error => {
+                console.error("Error loading weather:", error);
+            });
+    </script>
+
+</body>
+</html>

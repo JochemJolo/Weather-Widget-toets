@@ -1,0 +1,15 @@
+body {
+  background-color: aquamarine;
+}
+body h1 {
+  background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+}
+body p {
+  background-color: wheat;
+  display: flex;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=main.css.map */
