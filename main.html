@@ -2,29 +2,94 @@
 <html>
 <head>
     <title>Weather</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
 
+    <!-- <div>
+        <h1></h1>
+        <div class="Main-Container">
+            <div class="Container-Centering">
+                <li class="Container-Self">123</li>
+                <li class="Container-Self">456</li>
+                <li class="Container-Self">789</li>
+            </div>
+        </div>
+    </div> -->
+    
+    
+    
+    
+    
+    
+    
+    
     <h1>Weather</h1>
+    <div class="input">
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button onclick="getWeather()">Get Weather</button>
+    </div>
 
-    <p>City: <span id="city"></span></p>
-    <p>Temperature:  <span id="temperature"></span>  Celsius</p>
-    <p>Weather: <span id="weather"></span></p>
-    <p>Time: <span id="time"></span></p>
+    <h3>Saved cities:</h3>
+    <div class="ulList">
+        <ul id="savedList"></ul>
+    </div>
+
+    
+    <div class="pItems"></div>    <p>City: <span id="city"></span></p> </div>
+    <div class="pItems"></div>   <p>Temperature:  <span id="temperature"></span>  Celsius</p> </div>
+    <div class="pItems"></div>    <p>Weather: <span id="weather"></span></p> </div>
+    <div class="pItems"></div>    <p>Time: <span id="time"></span></p> </div>
+    
 
     <script>
-        fetch("weather.json")
+        function displayWeather(data) {
+            document.getElementById("city").textContent = data.city;
+            document.getElementById("temperature").textContent = data.temperature;
+            document.getElementById("weather").textContent = data.weather;
+            document.getElementById("time").textContent = data.time;
+        }
+
+        function getWeather() {
+            const city = document.getElementById("cityInput").value;
+
+            fetch("/weather", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ city: city })
+            })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("city").textContent = data.city;
-                document.getElementById("temperature").textContent = data.temperature;
-                document.getElementById("weather").textContent = data.weather;
-                document.getElementById("time").textContent = data.time;
+                displayWeather(data);
+                loadSavedList(); // refresh the list after saving a new one
             })
-            .catch(error => {
-                console.error("Error loading weather:", error);
-            });
+            .catch(error => console.error("Error loading weather:", error));
+        }
+
+        function loadSaved(city) {
+            fetch("/saved/" + city)
+                .then(response => response.json())
+                .then(data => displayWeather(data))
+                .catch(error => console.error("Error loading saved city:", error));
+        }
+
+        function loadSavedList() {
+            fetch("/saved")
+                .then(response => response.json())
+                .then(cities => {
+                    const list = document.getElementById("savedList");
+                    list.innerHTML = "";
+                    cities.forEach(city => {
+                        const li = document.createElement("li");
+                        li.textContent = city;
+                        li.style.cursor = "pointer";
+                        li.onclick = () => loadSaved(city);
+                        list.appendChild(li);
+                    });
+                });
+        }
+
+        loadSavedList();
     </script>
 
 </body>

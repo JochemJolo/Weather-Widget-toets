@@ -1,0 +1,60 @@
+$main: aquamarine;
+
+body{
+    background-color: $main;
+    
+    // div {
+    //     h1 {}
+    //         .Main-Container {
+    //             max-width: 80%;
+    //             display: flex;
+    //             justify-content: center;
+    //             background-color: red;
+    //         }
+    //             .Container-Centering {
+    //                 width: 200px;
+    //                 display: flex;
+    //                 justify-content: space-around;
+    //             }
+    //             li {
+    //                 width: 30px;
+    //                 height: 20px;
+    //                 border-color: blue;
+    //                 border-width: 2px;
+    //                 border-style: solid;
+    //                 list-style: none;
+    //             }
+        
+    // }
+
+
+
+    h1 {
+     background-color: $main;
+    display: flex;
+    justify-content: center;
+    }
+
+    div.input {
+        display: flex;
+        justify-content: center;
+    }
+    h3 {
+    display: flex;
+    justify-content: center;
+    }
+    div.ulList {
+        display: flex;
+        justify-content: center;
+    }
+    div.pItems {
+        display: flex;
+        justify-content: center;
+    }
+    p {
+        background-color: wheat;
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    }
+}
